@@ -1,0 +1,26 @@
+[user]
+    email = safu9.dev@gmail.com
+    name = safu9
+[core]
+    excludesfile = ~/.gitignore_global
+    autocrlf = input
+[rebase]
+    autosquash = true
+[alias]
+    a = add
+    aa = add .
+    b = branch
+    c = commit
+    cf = commit --fixup
+    co = checkout
+    cob = checkout -b
+    d = diff
+    dc = diff --cached
+    pp = pull --prune
+    rh = reset --hard
+    ri = rebase -i
+    s = status
+    st = stash
+    stp = stash pop
+    t = log --graph --oneline --all
+    tree = log --graph --oneline --all
