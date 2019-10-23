@@ -1,0 +1,14 @@
+#!/bin/sh
+# simple bash bookmark
+
+BMRC=~/.bmrc
+touch $BMRC
+
+if [ $# -eq 0 ]; then
+    cat $BMRC | sort -f
+elif [ $# -eq 1 ]; then
+    cd $(cat $BMRC | grep "$1:" | cut -d ':' -f 2)
+elif [ $# -eq 2 ]; then
+    echo "$1:$(realpath $2)" >> $BMRC
+    echo 'Bookmark added.'
+fi

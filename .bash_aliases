@@ -27,6 +27,8 @@ alias g='git'
 
 ### Utils
 
+alias bm='. bm'
+
 alias reload='. ~/.profile'
 
 alias pubip='curl https://ipinfo.io/ip'
