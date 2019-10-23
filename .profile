@@ -25,7 +25,13 @@ if [ -d "$HOME/.local/bin" ]; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
+# dotfiles
 DOTPATH="$HOME/dotfiles"
+
 if [ -d "$DOTPATH/bin" ]; then
     PATH="$DOTPATH/bin:$PATH"
+fi
+
+if [ -f "$DOTPATH/.env" ]; then
+    . "$DOTPATH/.env"
 fi

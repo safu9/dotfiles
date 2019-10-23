@@ -1,0 +1,10 @@
+#!/bin/sh
+
+url="ja.wttr.in/${1-$WTTR_DEFAULT_LOCATION}?${2-2qF}"
+cols=$(tput cols)
+
+if [ $cols -lt 125 ]; then
+    url="${url}n"
+fi
+
+curl "${url}"

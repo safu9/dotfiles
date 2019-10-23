@@ -7,6 +7,8 @@ DOTPATH="$HOME/dotfiles"
 cd $DOTPATH
 for file in .??*; do
     [ "$file" = ".git" ] && continue
+    [ "$file" = ".gitignore" ] && continue
+    [ "$file" = ".env" ] && continue
 
     if [ -L "$HOME/$file" ]; then
         ln -snfv "$DOTPATH/$file" "$HOME/$file"
