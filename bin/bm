@@ -5,10 +5,19 @@ BMRC=~/.bmrc
 touch $BMRC
 
 if [ $# -eq 0 ]; then
-    cat $BMRC | sort -f
+    # show list
+    column -t -s ':' $BMRC | sort -f
 elif [ $# -eq 1 ]; then
-    cd $(cat $BMRC | grep "$1:" | cut -d ':' -f 2)
+    if [[ $1 == -* ]]; then
+        # remove bookmark if startswith hyphen
+        sed -i "/^${1:1}:/d" $BMRC
+        echo 'Bookmark removed.'
+    else
+        # go to bookmark
+        cd $(grep "$1:" $BMRC | cut -d ':' -f 2)
+    fi
 elif [ $# -eq 2 ]; then
+    sed -i "/^${1}:/d" $BMRC
     echo "$1:$(realpath $2)" >> $BMRC
     echo 'Bookmark added.'
 fi
