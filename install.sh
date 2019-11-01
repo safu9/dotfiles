@@ -8,6 +8,7 @@ cd $DOTPATH
 for file in .??*; do
     [ "$file" = ".editorconfig" ] && continue
     [ "$file" = ".env" ] && continue
+    [ "$file" = ".env.sample" ] && continue
     [ "$file" = ".git" ] && continue
     [ "$file" = ".gitignore" ] && continue
 
