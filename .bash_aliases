@@ -14,6 +14,8 @@ alias cp='cp -i'
 alias mv='mv -i'
 alias rm='rm -i'
 
+alias sudo='sudo -E '       # use user's env vars and alias
+
 ### Shorten commands
 
 alias ~='cd ~'
