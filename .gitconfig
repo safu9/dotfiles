@@ -16,12 +16,16 @@
     cob = checkout -b
     d = diff
     dc = diff --cached
+    ds = diff --staged
     pp = pull --prune
     rh = reset --hard
     ri = rebase -i
+    rs = restore
+    rss = restore --staged
     s = status
     st = stash
     stp = stash pop
+    sw = switch
     t = log --graph --oneline --all
     tree = log --graph --oneline --all
 [filter "lfs"]
