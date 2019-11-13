@@ -17,6 +17,7 @@
     d = diff
     dc = diff --cached
     ds = diff --staged
+    l = log
     pp = pull --prune
     rh = reset --hard
     ri = rebase -i
