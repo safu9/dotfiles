@@ -11,13 +11,21 @@
     aa = add .
     b = branch
     c = commit
+    ca = commit --amend
+    can = commit --amend --no-edit
     cf = commit --fixup
     co = checkout
     cob = checkout -b
     d = diff
     dc = diff --cached
     ds = diff --staged
+    f = fetch
+    fo = fetch origin
     l = log
+    p = push
+    pf = push --force-with-lease
+    pu = push --set-upstream
+    puo = push --set-upstream origin
     pp = pull --prune
     rh = reset --hard
     ri = rebase -i
@@ -27,6 +35,7 @@
     st = stash
     stp = stash pop
     sw = switch
+    swc = switch -c
     t = log --graph --oneline --all
     tree = log --graph --oneline --all
 [filter "lfs"]
