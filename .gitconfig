@@ -35,6 +35,7 @@
     rss = restore --staged
     s = status
     st = stash
+    std = stash drop
     stp = stash pop
     stu = stash -u
     sw = switch
