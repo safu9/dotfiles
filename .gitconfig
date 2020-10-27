@@ -27,13 +27,16 @@
     pu = push --set-upstream
     puo = push --set-upstream origin
     pp = pull --prune
+    r = reset
     rh = reset --hard
+    rhh = reset --hard HEAD
     ri = rebase -i
     rs = restore
     rss = restore --staged
     s = status
     st = stash
     stp = stash pop
+    stu = stash -u
     sw = switch
     swc = switch -c
     t = log --graph --oneline --all
