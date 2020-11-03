@@ -6,6 +6,8 @@
     autocrlf = input
 [rebase]
     autosquash = true
+[pull]
+	ff = only
 [alias]
     a = add
     aa = add .
