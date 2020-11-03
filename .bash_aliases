@@ -24,6 +24,7 @@ alias ...='cd ...'
 
 alias d='docker'
 alias dc='docker-compose'
+alias dcx='docker-compose exec'
 
 alias g='git'
 
