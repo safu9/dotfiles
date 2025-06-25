@@ -2,14 +2,19 @@
 	email = safu9.dev@gmail.com
 	name = safu9
 [core]
-	excludesfile = ~/.gitignore_global
 	autocrlf = input
-[rebase]
-	autosquash = true
+[init]
+	defaultBranch = main
+[fetch]
+	prune = true
 [pull]
 	ff = only
 [push]
 	autoSetupRemote = true
+[rebase]
+	autosquash = true
+[submodule]
+	recurse = true
 
 [alias]
 	a = add
@@ -33,6 +38,7 @@
 	dc = diff --cached
 	ds = diff --staged
 	f = fetch
+	fo = fetch origin
 	l = log
 	lg = log --graph --oneline --all
 	m = merge
@@ -62,8 +68,10 @@
 	sm = switch main
 	ss = status
 	st = stash -u
+	std = stash drop
 	stl = stash list
 	stp = stash pop
+	stu = stash -u
 
 [filter "lfs"]
 	required = true
