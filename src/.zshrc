@@ -5,6 +5,7 @@ setopt extended_glob
 setopt glob_dots
 setopt share_history
 
+HISTFILE=~/.zsh_history
 HISTSIZE=100000
 SAVEHIST=100000
 
