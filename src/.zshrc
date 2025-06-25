@@ -1,7 +1,5 @@
 # Zsh configuration
 
-bindkey -e
-
 setopt auto_cd
 setopt extended_glob
 setopt glob_dots
