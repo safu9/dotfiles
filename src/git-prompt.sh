@@ -17,7 +17,12 @@ function update_git_prompt_status() {
     unset __CURRENT_GIT_PROMPT
 
     local git_status
-    git_status=$(git status --porcelain=2 --branch 2>/dev/null)
+    local git_exec="git"
+    if [[ $(uname -r) == *"WSL"* && $(pwd) == "/mnt/"* ]]; then
+        # Workaround for performance issues with WSL
+        git_exec="git.exe"
+    fi
+    git_status=$($git_exec status --porcelain=2 --branch 2>/dev/null)
 
     if [[ $? -ne 0 ]]; then
         # Not a git repository
