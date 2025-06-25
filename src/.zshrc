@@ -14,6 +14,9 @@ setopt hist_ignore_space
 setopt hist_find_no_dups
 setopt hist_save_no_dups
 
+bindkey "^[[1;5C" forward-word  # Ctrl + Right Arrow
+bindkey "^[[1;5D" backward-word  # Ctrl + Left Arrow
+
 # Colors
 
 autoload -Uz colors && colors
