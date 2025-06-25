@@ -21,16 +21,9 @@ autoload -Uz colors && colors
 
 if [ -x /usr/bin/dircolors ]; then
     eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
-
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
 fi
 
-export LSCOLORS=gxfxcxdxbxegedabagacad
+export LSCOLORS=exgxfxdxcxegedabagacad
 
 # Completions
 
@@ -43,11 +36,11 @@ fi
 
 # Aliases
 
-alias ls='ls -G'
-
-alias l='ls -F'
-alias la='ls -AF'
-alias ll='ls -alhF'
+alias ls='ls --color=auto -G'
+alias l='ls --color=auto -G -F'
+alias la='ls --color=auto -G -AF'
+alias ll='ls --color=auto -G -alhF'
+alias grep='grep --color=auto'
 
 alias b='brew'
 alias d='docker'
