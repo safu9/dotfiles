@@ -56,4 +56,6 @@ alias npr='npm run'
 
 # Prompt
 
-PROMPT='%F{blue}%n@%m%f %F{green}%1~%f %# '
+source ~/dotfiles/src/git-prompt.sh
+
+PROMPT='%F{blue}%m:%f%F{green}%~%f $(git_prompt)%# '
