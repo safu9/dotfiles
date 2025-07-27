@@ -7,14 +7,9 @@
 
 autoload -Uz colors && colors
 
-setopt prompt_subst
-
-# Hook
-autoload -U add-zsh-hook
-add-zsh-hook precmd update_git_prompt_status
-
-function update_git_prompt_status() {
-    unset __CURRENT_GIT_PROMPT
+function update_git_prompt() {
+    local prompt_prefix=$1
+    local prompt_suffix=$2
 
     local git_status
     local git_exec="git"
@@ -26,7 +21,7 @@ function update_git_prompt_status() {
 
     if [[ $? -ne 0 ]]; then
         # Not a git repository
-        __CURRENT_GIT_PROMPT=""
+        PROMPT="${prompt_prefix}${prompt_suffix}"
         return
     fi
 
@@ -76,87 +71,81 @@ function update_git_prompt_status() {
         fi
     done
 
-    local prompt
+    local git_prompt
 
-    prompt="${ZSH_THEME_GIT_PROMPT_PREFIX}"
+    git_prompt="${ZSH_THEME_GIT_PROMPT_PREFIX}"
 
     if ((ahead > 0 && behind > 0)); then
-        prompt="${prompt}${ZSH_THEME_GIT_PROMPT_BRANCH_AHEAD_AND_BEHIND_COLOR}"
+        git_prompt="${git_prompt}${ZSH_THEME_GIT_PROMPT_BRANCH_AHEAD_AND_BEHIND_COLOR}"
     elif ((ahead > 0)); then
-        prompt="${prompt}${ZSH_THEME_GIT_PROMPT_BRANCH_AHEAD_COLOR}"
+        git_prompt="${git_prompt}${ZSH_THEME_GIT_PROMPT_BRANCH_AHEAD_COLOR}"
     elif ((behind > 0)); then
-        prompt="${prompt}${ZSH_THEME_GIT_PROMPT_BRANCH_BEHIND_COLOR}"
+        git_prompt="${git_prompt}${ZSH_THEME_GIT_PROMPT_BRANCH_BEHIND_COLOR}"
     else
-        prompt="${prompt}${ZSH_THEME_GIT_PROMPT_BRANCH_COLOR}"
+        git_prompt="${git_prompt}${ZSH_THEME_GIT_PROMPT_BRANCH_COLOR}"
     fi
 
     if [[ $branch != "" && $branch != "(detached)" ]]; then
-        prompt="${prompt}${branch}"
+        git_prompt="${git_prompt}${branch}"
     elif [[ $commit == "(initial)" ]]; then
-        prompt="${prompt}${commit}"
+        git_prompt="${git_prompt}${commit}"
     else
-        prompt="${prompt}${commit:0:7}"
+        git_prompt="${git_prompt}${commit:0:7}"
     fi
 
     if ((ahead > 0 || behind > 0)); then
         if ((behind > 0)); then
-            prompt="${prompt} ${ZSH_THEME_GIT_PROMPT_BEHIND}${behind}"
+            git_prompt="${git_prompt} ${ZSH_THEME_GIT_PROMPT_BEHIND}${behind}"
         fi
         if ((ahead > 0)); then
-            prompt="${prompt} ${ZSH_THEME_GIT_PROMPT_AHEAD}${ahead}"
+            git_prompt="${git_prompt} ${ZSH_THEME_GIT_PROMPT_AHEAD}${ahead}"
         fi
     else
-        prompt="${prompt} ${ZSH_THEME_GIT_PROMPT_EVEN}"
+        git_prompt="${git_prompt} ${ZSH_THEME_GIT_PROMPT_EVEN}"
     fi
-    prompt="${prompt}${reset_color}"
+    git_prompt="${git_prompt}%{${reset_color}%}"
 
-    prompt="${prompt}${ZSH_THEME_GIT_PROMPT_INDEX_COLOR}"
+    git_prompt="${git_prompt}${ZSH_THEME_GIT_PROMPT_INDEX_COLOR}"
     if ((conflicting > 0)); then
-        prompt="${prompt} ${ZSH_THEME_GIT_PROMPT_CONFLICTING}${conflicting}"
+        git_prompt="${git_prompt} ${ZSH_THEME_GIT_PROMPT_CONFLICTING}${conflicting}"
     fi
     if ((indexAdded > 0)); then
-        prompt="${prompt} ${ZSH_THEME_GIT_PROMPT_ADDED}${indexAdded}"
+        git_prompt="${git_prompt} ${ZSH_THEME_GIT_PROMPT_ADDED}${indexAdded}"
     fi
     if ((indexModified > 0)); then
-        prompt="${prompt} ${ZSH_THEME_GIT_PROMPT_MODIFIED}${indexModified}"
+        git_prompt="${git_prompt} ${ZSH_THEME_GIT_PROMPT_MODIFIED}${indexModified}"
     fi
     if ((indexDeleted > 0)); then
-        prompt="${prompt} ${ZSH_THEME_GIT_PROMPT_DELETED}${indexDeleted}"
+        git_prompt="${git_prompt} ${ZSH_THEME_GIT_PROMPT_DELETED}${indexDeleted}"
     fi
-    prompt="${prompt}${reset_color}"
+    git_prompt="${git_prompt}%{${reset_color}%}"
 
-    prompt="${prompt}${ZSH_THEME_GIT_PROMPT_WORKING_TREE_COLOR}"
+    git_prompt="${git_prompt}${ZSH_THEME_GIT_PROMPT_WORKING_TREE_COLOR}"
     if ((workingTreeAdded > 0)); then
-        prompt="${prompt} ${ZSH_THEME_GIT_PROMPT_ADDED}${workingTreeAdded}"
+        git_prompt="${git_prompt} ${ZSH_THEME_GIT_PROMPT_ADDED}${workingTreeAdded}"
     fi
     if ((workingTreeModified > 0)); then
-        prompt="${prompt} ${ZSH_THEME_GIT_PROMPT_MODIFIED}${workingTreeModified}"
+        git_prompt="${git_prompt} ${ZSH_THEME_GIT_PROMPT_MODIFIED}${workingTreeModified}"
     fi
     if ((workingTreeDeleted > 0)); then
-        prompt="${prompt} ${ZSH_THEME_GIT_PROMPT_DELETED}${workingTreeDeleted}"
+        git_prompt="${git_prompt} ${ZSH_THEME_GIT_PROMPT_DELETED}${workingTreeDeleted}"
     fi
-    prompt="${prompt}${reset_color}"
+    git_prompt="${git_prompt}%{${reset_color}%}"
 
-    prompt="${prompt}${ZSH_THEME_GIT_PROMPT_SUFFIX}"
+    git_prompt="${git_prompt}${ZSH_THEME_GIT_PROMPT_SUFFIX}"
 
-    __CURRENT_GIT_PROMPT=$prompt
-}
-
-git_prompt() {
-    if [ -n "$__CURRENT_GIT_PROMPT" ]; then
-        echo "$__CURRENT_GIT_PROMPT"
-    fi
+    PROMPT="${prompt_prefix}${git_prompt}${prompt_suffix}"
 }
 
 # Theming values
 ZSH_THEME_GIT_PROMPT_PREFIX="["
 ZSH_THEME_GIT_PROMPT_SUFFIX="]"
-ZSH_THEME_GIT_PROMPT_BRANCH_COLOR="${fg[cyan]}"
-ZSH_THEME_GIT_PROMPT_BRANCH_AHEAD_COLOR="${fg[green]}"
-ZSH_THEME_GIT_PROMPT_BRANCH_BEHIND_COLOR="${fg[yellow]}"
-ZSH_THEME_GIT_PROMPT_BRANCH_AHEAD_AND_BEHIND_COLOR="${fg[red]}"
-ZSH_THEME_GIT_PROMPT_INDEX_COLOR="${fg[green]}"
-ZSH_THEME_GIT_PROMPT_WORKING_TREE_COLOR="${fg[red]}"
+ZSH_THEME_GIT_PROMPT_BRANCH_COLOR="%{$fg[cyan]%}"
+ZSH_THEME_GIT_PROMPT_BRANCH_AHEAD_COLOR="%{$fg[green]%}"
+ZSH_THEME_GIT_PROMPT_BRANCH_BEHIND_COLOR="%{$fg[yellow]%}"
+ZSH_THEME_GIT_PROMPT_BRANCH_AHEAD_AND_BEHIND_COLOR="%{$fg[red]%}"
+ZSH_THEME_GIT_PROMPT_INDEX_COLOR="%{$fg[green]%}"
+ZSH_THEME_GIT_PROMPT_WORKING_TREE_COLOR="%{$fg[red]%}"
 ZSH_THEME_GIT_PROMPT_ADDED="+"
 ZSH_THEME_GIT_PROMPT_MODIFIED="*"
 ZSH_THEME_GIT_PROMPT_DELETED="-"

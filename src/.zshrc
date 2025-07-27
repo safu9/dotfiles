@@ -49,8 +49,17 @@ alias npr='npm run'
 
 source ~/dotfiles/src/git-prompt.sh
 
-PROMPT='%F{blue}%m:%f%F{green}%~%f $(git_prompt)%# '
+autoload -Uz colors && colors
 
+autoload -U add-zsh-hook
+add-zsh-hook precmd update_prompt
+
+function update_prompt() {
+    local prompt_prefix="%{%F{blue}%}%m:%{%f%}%{%F{green}%}%~%{%f%} "
+    local prompt_suffix="%# "
+
+    update_git_prompt "$prompt_prefix" "$prompt_suffix"
+}
 
 # Plugins
 
