@@ -9,6 +9,7 @@
 	prune = true
 [pull]
 	ff = only
+	autostash = true
 [push]
 	autoSetupRemote = true
 [rebase]
