@@ -1,12 +1,15 @@
 [user]
-	email = safu9.dev@gmail.com
 	name = safu9
+	email = safu9.dev@gmail.com
 [core]
 	autocrlf = input
 [init]
 	defaultBranch = main
+[submodule]
+	recurse = true
 [fetch]
 	prune = true
+	recurseSubmodules = on-demand # place after submodule.recurse
 [pull]
 	ff = only
 	autostash = true
@@ -14,8 +17,6 @@
 	autoSetupRemote = true
 [rebase]
 	autosquash = true
-[submodule]
-	recurse = true
 
 [alias]
 	a = add
@@ -24,6 +25,7 @@
 	bd = branch -d
 	bdf = branch -d --force
 	bm = branch -m
+	bu = branch --unset-upstream
 	c = commit
 	ca = commit --amend
 	can = commit --amend --no-edit
@@ -41,6 +43,7 @@
 	f = fetch
 	fo = fetch origin
 	l = log
+	lo = log --oneline
 	lg = log --graph --oneline --all
 	m = merge
 	mf = merge --ff-only
